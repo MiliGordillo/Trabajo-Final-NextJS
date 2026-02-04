@@ -220,7 +220,7 @@ ecommerce-app/
 - **Body:**
   ```json
   {
-    "name": "Juan Pérez",
+    "name": "Juan",
     "email": "juan@example.com",
     "password": "password123"
   }

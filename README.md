@@ -2,21 +2,6 @@
 
 Una aplicación e-commerce moderna desarrollada con **Next.js**, **TypeScript**, **Prisma** y **Tailwind CSS**. La aplicación incluye un panel de administración, gestión de productos, usuarios y pedidos.
 
----
-
-## 📋 Tabla de Contenidos
-
-- [Características Obligatorias Implementadas](#características-obligatorias-implementadas)
-- [Tecnologías Utilizadas](#tecnologías-utilizadas)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Entidades/Modelos](#entidadesmodelos)
-- [APIs Desarrolladas](#apis-desarrolladas)
-- [Instalación y Setup](#instalación-y-setup)
-- [Uso de la Aplicación](#uso-de-la-aplicación)
-- [Rutas y Navegación](#rutas-y-navegación)
-
----
-
 ## ✅ Características Obligatorias Implementadas
 
 ### Frontend Personalizado

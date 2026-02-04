@@ -362,7 +362,3 @@ El archivo `src/lib/product-helpers.ts` proporciona funciones auxiliares:
 - `OrderActionsModal` - Modal para actualizar pedidos
 - `LogoutButton` - Botón de logout seguro
 - `Confirm` - Modal de confirmación
-# Nextjs
-# Nextjs
-# Nextjs
-# E-commerce-nextjs

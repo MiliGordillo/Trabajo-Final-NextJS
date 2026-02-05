@@ -1,27 +1,31 @@
 const { PrismaClient } = require("@prisma/client");
 const { hash } = require("bcryptjs");
+const fetch = require("node-fetch");
 
 const prisma = new PrismaClient();
 
 async function syncProductsFromFakeStore() {
   try {
     console.log("📦 Obteniendo productos de FakeStoreAPI...");
+
     const response = await fetch("https://fakestoreapi.com/products");
     const fakeStoreProducts = await response.json();
 
     console.log(`✅ ${fakeStoreProducts.length} productos obtenidos de FakeStoreAPI`);
 
     const createdProducts = [];
+
     for (const fakeProduct of fakeStoreProducts) {
       const product = await prisma.product.create({
         data: {
           name: fakeProduct.title,
           description: fakeProduct.description,
-          price: fakeProduct.price,
-          stock: Math.floor(Math.random() * 50) + 20, // Stock aleatorio entre 20-70
-          imageUrl: fakeProduct.image,
-        },
+          price: Number(fakeProduct.price),
+          stock: Math.floor(Math.random() * 50) + 20,
+          imageUrl: fakeProduct.image
+        }
       });
+
       createdProducts.push(product);
     }
 
@@ -35,7 +39,7 @@ async function syncProductsFromFakeStore() {
 async function main() {
   console.log("🌱 Sembrando base de datos...");
 
-  // Limpiar datos existentes
+  // Limpiar datos existentes (orden correcto por relaciones)
   await prisma.order.deleteMany();
   await prisma.product.deleteMany();
   await prisma.user.deleteMany();
@@ -49,8 +53,8 @@ async function main() {
       name: "Administrador",
       email: "admin@example.com",
       password: adminPassword,
-      role: "ADMIN",
-    },
+      role: "ADMIN"
+    }
   });
 
   const customer = await prisma.user.create({
@@ -58,29 +62,29 @@ async function main() {
       name: "Juan Cliente",
       email: "cliente@example.com",
       password: customerPassword,
-      role: "CUSTOMER",
-    },
+      role: "CUSTOMER"
+    }
   });
 
   console.log("✅ Usuarios creados:");
   console.log("  - Admin: admin@example.com / password123");
   console.log("  - Cliente: cliente@example.com / password123");
 
-  // Obtener productos de FakeStoreAPI
+  // Cargar productos
   const products = await syncProductsFromFakeStore();
 
   if (products.length > 0) {
-    console.log("✅ Productos de FakeStoreAPI cargados: " + products.length);
+    console.log("✅ Productos cargados: " + products.length);
 
-    // Crear una orden de ejemplo con el primer producto
-    const order = await prisma.order.create({
+    // Orden de ejemplo
+    await prisma.order.create({
       data: {
         userId: customer.id,
         productId: products[0].id,
         quantity: 1,
         total: products[0].price,
-        status: "DELIVERED",
-      },
+        status: "DELIVERED"
+      }
     });
 
     console.log("✅ Orden de ejemplo creada");
@@ -90,10 +94,11 @@ async function main() {
 }
 
 main()
-  .catch((e) => {
-    console.error("❌ Error sembrando la base de datos:", e);
+  .catch((error) => {
+    console.error("❌ Error sembrando la base de datos:", error);
     process.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();
   });
+

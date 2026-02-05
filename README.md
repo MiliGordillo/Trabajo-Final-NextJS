@@ -350,15 +350,11 @@ Password: password123
 - Solo ocurre si la BD está vacía
 - Trae ~20 productos con sus descripciones e imágenes reales
 
-### **Helpers de Productos**
-El archivo `src/lib/product-helpers.ts` proporciona funciones auxiliares:
-- Calcular totales con descuentos por cantidad
-- Formatear precios con localización
-- Filtrar y ordenar productos
-- Estadísticas de carrito
-
 ### **Componentes Reutilizables**
 - `ProductCard` - Card con información de producto
 - `OrderActionsModal` - Modal para actualizar pedidos
 - `LogoutButton` - Botón de logout seguro
 - `Confirm` - Modal de confirmación
+
+### **Despliegue**
+- https://trabajo-final-next-js-git-main-miligordillos-projects.vercel.app/
